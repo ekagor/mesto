@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Место</title>
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body class="page">
+  <header class="header">
+    <img class="header__logo" src="./images/logo.svg" alt="Логотип">
+  </header>
+  <main class="content">
+    <section class="profile">
+      <div class="profile__avatar-box">
+        <img class="profile__avatar" src="./images/profile-avatar.jpg" alt="Аватар">
+      </div>
+      <div class="profile__info">
+        <h1 class="profile__title">Жак-Ив Кусто</h1>
+        <button class="profile__edit-button" type="button"></button>
+        <p class="profile__subtitle">Исследователь океана</p>
+      </div>
+      <button class="profile__add-button"></button>
+    </section>
+    <section class="photo-grid">
+      <ul class="photo-grid__cards">
+        <li class="card">
+          <img class="card__image" src="./images/photo-grid-karachaevsk.jpg" alt="Карачаево-Черкессия. Горы. Древний храм">
+          <div class="card__info">
+            <h2 class="card__title">Карачаевск</h2>
+            <button class="card__like" type="button"></button>
+          </div>
+        </li>
+        <li class="card">
+            <img class="card__image" src="./images/photo-grid-elbrus.jpg" alt="Эльбрус, заснеженная вершина">
+            <div class="card__info">
+              <h2 class="card__title">Гора Эльбрус</h2>
+              <button class="card__like" type="button"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" src="./images/photo-grid-baikal.jpg" alt="Песочный берег озера Байкал, вдали горы">
+            <div class="card__info">
+              <h2 class="card__title">Байкал</h2>
+              <button class="card__like" type="button"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" src="./images/photo-grid-baikal-2.jpg" alt="Скалистый берег байкала">
+            <div class="card__info">
+              <h2 class="card__title">Озеро Байкал</h2>
+              <button class="card__like" type="button"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" src="./images/photo-grid-atharva-tulsi.jpg" alt="Заснеженная вершина горы в облаках">
+            <div class="card__info">
+              <h2 class="card__title">Домбай</h2>
+              <button class="card__like" type="button"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" src="./images/photo-grid-karachaevsk.jpg" alt="Карачаево-Черкессия. Горы. Древний храм">
+            <div class="card__info">
+              <h2 class="card__title">Карачаево-Черкессия</h2>
+              <button class="card__like" type="button"></button>
+            </div>
+          </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">© 2023 Mesto Russia</p>
+  </footer>
+
+  <section class="popup">
+    
+    <form class="popup__container">      
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <fieldset class="popup__content">
+        <input class="popup__input popup__input_type_name" name="name" type="text" placeholder="Имя" required>
+        <input class="popup__input popup__input_type_job" name="about" type="text" placeholder="О себе" required>
+      </fieldset>
+      <button class="popup__button" type="submit">Сохранить</button>
+      <button class="popup__close" type="button"></button>
+    </form>
+    
+  </section>
+  <script src="./scripts/index.js"></script>
+</body>
+  
