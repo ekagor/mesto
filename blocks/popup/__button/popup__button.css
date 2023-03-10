@@ -1,5 +1,7 @@
 .popup__button {
-  display: block;
+  display: flex;
+  align-self: center;
+  justify-content: space-around;
   border: 0;
   background-color: #000;
   height: 50px;

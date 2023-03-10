@@ -1,11 +1,4 @@
 .popup__content {
-  border: 0;
-  margin: 54px 0 48px;
+  display: flex;
+  flex-direction: column;
 }
-
-@media (max-width: 500px) {
-    .popup__content{
-      margin: 75px 0 45px;
-    }
-  }
-
