@@ -13,3 +13,4 @@
 * JavaScript
 
 Ссылка на сайт на GitHub-Pages:
+<a href="https://ekagor.github.io/mesto/" rel="nofollow">https://ekagor.github.io/mesto/</a>

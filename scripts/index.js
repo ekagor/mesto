@@ -5,6 +5,8 @@ let popupCloseButton = document.querySelector('.popup__close');
 
 function openPopup() {                    //Функция открывает попап
     popup.classList.add('popup_opened');
+    jobInput.value = jobAuthor.textContent;
+    nameInput.value = nameAuthor.textContent;
 }
 
 function closePopup() {                    //Функция закрывает попап
