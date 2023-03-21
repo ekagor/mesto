@@ -7,4 +7,11 @@
   background-repeat: no-repeat;
   border: 0;
   background-color: transparent;
+  opacity: 1;
+  transition: opacity .5s ease;
+  cursor: pointer;
+}
+
+.card__like:hover {
+  opacity: .5;
 }
