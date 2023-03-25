@@ -1,39 +1,128 @@
 //Открытие закрытие попапа
-const popup = document.querySelector('.popup');
+const popup = document.querySelectorAll('.popup');
 const profileEditButton = document.querySelector('.profile__edit-button');
-let popupCloseButton = document.querySelector('.popup__close');
+const placeEditButton = document.querySelector('.profile__add-button');
+const popupCloseButtons = document.querySelectorAll('.popup__close');
 
-function openPopup() {                    //Функция открывает попап
-    popup.classList.add('popup_opened');
-    jobInput.value = jobAuthor.textContent;
-    nameInput.value = nameAuthor.textContent;
-}
+const profileName = document.querySelector('.profile__title');
+const profileJob = document.querySelector('.profile__subtitle');
 
-function closePopup() {                    //Функция закрывает попап
-    popup.classList.remove('popup_opened');
-}
+//Попапы
+const popupEditProfile = document.querySelector('.popup-edit');
+const popupEditPlace = document.querySelector('.popup-place');
+const popupImg = document.querySelector('.img-popup');
+//Формы попапов (для сабмитов)
+const formPopupProfile = popupEditProfile.querySelector('.popup__content');
+const formPopupPlace = popupEditPlace.querySelector('.popup__content');
+//Импуты форм попапов:
+//импуты попапа Profile
+const inputNameAuthor = document.querySelector('.popup__input_type_name');
+const inputJobAuthor = document.querySelector('.popup__input_type_job');
+//импуты попапа Place
+const inputTitle = formPopupPlace.querySelector('.popup__input_type_title');
+const inputLink = formPopupPlace.querySelector('.popup__input_type_link');
+//элементы попапа Img
+const containerImgPopup = popupImg.querySelector('.img-popup__container')
+const imageImgPopup = popupImg.querySelector('.img-popup__image');
+const CaptionImgPopup = popupImg.querySelector('.img-popup__caption');
 
-profileEditButton.addEventListener('click', openPopup) //Вызoв функции открыть попап по клику
-popupCloseButton.addEventListener('click', closePopup) //Вызoв функции закрыть попап по клику
+const formProfileElement = document.querySelector('.popup__container');
+const ulContainer = document.querySelector('.photo-grid__cards');
 
-//Внесение данных в форму
-const formElement = document.querySelector('.popup__container');
+//Массив картточек изначальный
+const initialCards = [
+    {
+      name: 'Архыз',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+      name: 'Челябинская область',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+      name: 'Иваново',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+      name: 'Камчатка',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+      name: 'Холмогорский район',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+      name: 'Байкал',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+  ];
+  
+  function openPopup(popup) {
+      popup.classList.add('popup_opened');
+  }
 
-const nameAuthor = document.querySelector('.profile__title');
-const jobAuthor = document.querySelector('.profile__subtitle');
+  function closePopup(popup) {
+      popup.classList.remove('popup_opened');
+  }
 
-const jobInput = document.querySelector('.popup__input_type_job');// Получите значение полей jobInput и nameInput из свойства value
-const nameInput = document.querySelector('.popup__input_type_name');
+  profileEditButton.addEventListener('click', () => {
+      inputNameAuthor.value = profileName.textContent;
+      inputJobAuthor.value = profileJob.textContent;
+      openPopup(popupEditProfile)
+  })
+      
+  formPopupProfile.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    profileName.textContent = inputNameAuthor.value;
+    profileJob.textContent = inputJobAuthor.value;
+    closePopup(popupEditProfile);
+})
 
-function handleFormSubmit(evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-    // Так мы можем определить свою логику отправки.
-    jobAuthor.textContent = jobInput.value; // Вставьте новые значения с помощью textContent
-    nameAuthor.textContent = nameInput.value;
+formProfileElement.addEventListener('submit', formPopupProfile);
 
-    closePopup();
+popupCloseButtons.forEach((item) => {
+    const popup = item.closest('.popup');
+    item.addEventListener('click', () => {
+    closePopup(popup)
+  })
+})
 
-}
+placeEditButton.addEventListener('click', () => {  
+    openPopup(popupEditPlace)
+})
 
+//Создание карточки на основе темплейта
+function createCard (item) {
+	const cardTemplate = document.querySelector('.card-template').content;
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+  const cardImage = cardElement.querySelector('.card__image');
+  const cardName = cardElement.querySelector('.card__title');
+  const cardLike = cardElement.querySelector('.card__like');
+  const trashCard = cardElement.querySelector('.card__trash');
+  cardImage.src = item.link;
+  cardImage.alt = item.name;
+  cardName.textContent = item.name;
+  cardLike.addEventListener('click', (evt) => evt.target.classList.toggle('card__like_active'));
+  cardImage.addEventListener('click', function() {
+    openPopup(popupImg);
+    imageImgPopup.src = cardImage.src;
+    imageImgPopup.alt = cardImage.alt;
+    CaptionImgPopup.textContent = cardImage.alt;
+  });
 
-formElement.addEventListener('submit', handleFormSubmit); // Обработчик формы submit следит за отправкой данных пользователя 
+trashCard.addEventListener('click', () => trashCard.closest('.card').remove());  
+  return cardElement
+};
+
+initialCards.forEach(function (item) {
+   ulContainer.append(createCard(item));
+});
+
+//Редактирование карточки места
+formPopupPlace.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const objectPlace = {name: inputTitle.value, link: inputLink.value};  
+  ulContainer.prepend(createCard(objectPlace));
+  closePopup(popupEditPlace);
+  evt.target.reset();
+})

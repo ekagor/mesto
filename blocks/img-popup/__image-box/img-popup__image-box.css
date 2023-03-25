@@ -1,0 +1,6 @@
+.img-popup__image-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+}
