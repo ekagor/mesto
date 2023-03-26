@@ -4,5 +4,6 @@
   display: block;
   object-fit: cover;
   object-position: center;
-  z-index: 2;
+  background-color: #000;
+  cursor: pointer;  
 }
