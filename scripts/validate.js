@@ -24,6 +24,11 @@ function hideInputError(errorElement, input, inputErrorClass, errorClass) {
   input.classList.remove(inputErrorClass);
 }
 
+//делает инпуты валидными
+function hasValidInput(inputList) {
+  return Array.from(inputList).every((input) => input.validity.valid)
+}
+
 //делает кнопку некликабельной
 function disableSubmitButton(button, inactiveButtonClass) {
   button.classList.add(inactiveButtonClass);
@@ -34,11 +39,6 @@ function disableSubmitButton(button, inactiveButtonClass) {
 function enableSubmitButton(button, inactiveButtonClass) {
   button.classList.remove(inactiveButtonClass);
   button.disabled = false;
-}
-
-//делает инпуты валидными
-function hasValidInput(inputList) {
-  return Array.from(inputList).every((input) => input.validity.valid)
 }
 
 //проверяет валидность инпутов и меняет вид кнопки 
@@ -53,7 +53,7 @@ function toggleButtonState(button, inputList, inactiveButtonClass) {
   }
 }
 
-// скрытие или показ ошибки в зависимости от валидности инпутов
+// скрытие или показ ошибки при валидных и невалидных инпутах
 function checkInputValidity(input, errorTemplate, inputErrorClass, errorClass) {
   const errorElement = document.querySelector(`${errorTemplate}${input.name}`);
   if (input.validity.valid) {
@@ -64,21 +64,22 @@ function checkInputValidity(input, errorTemplate, inputErrorClass, errorClass) {
   }
 }
 
-function addEventListener(inputList, button, errorSelector, inactiveButtonClass, inputErrorClass, errorClass) {
-  inputList.forEach((input) => {
-    input.addEventListener('input', () => {
-      toggleButtonState(button, inputList, inactiveButtonClass);
-      checkInputValidity(input, errorSelector, inputErrorClass, errorClass);
-    })
-  })
-}
-
 function enableValidation(settings) {
   const forms = Array.from(settings.allForms)
   forms.forEach((item) => {
     const inputList = item.querySelectorAll(settings.inputSelector)
     const buttonSubmit = item.querySelector(settings.submitButtonSelector)
     addEventListener(inputList, buttonSubmit, settings.errorTemplate, settings.inactiveButtonClass, settings.inputErrorClass, settings.errorClass)
+  })
+}
+
+
+function addEventListener(inputList, button, errorSelector, inactiveButtonClass, inputErrorClass, errorClass) {
+  inputList.forEach((input) => {
+    input.addEventListener('input', () => {
+      toggleButtonState(button, inputList, inactiveButtonClass);
+      checkInputValidity(input, errorSelector, inputErrorClass, errorClass);
+    })
   })
 }
 
