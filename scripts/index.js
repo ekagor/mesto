@@ -28,6 +28,12 @@ const captionImgPopup = popupImg.querySelector('.img-popup__caption');
 
 const cardsContainer = document.querySelector('.photo-grid__cards');
 
+const popupCloseButton = document.querySelectorAll('.popup__close-button'); 
+// Все оверлеи попапов
+const popupOverlays = document.querySelectorAll('.popup');
+
+
+
 //Массив картточек изначальный
 const initialCards = [
   {
@@ -56,17 +62,40 @@ const initialCards = [
   }
 ];
 
+
+//закрытие попапа при нажатии на клавишу Escape
+function closePopupByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened')
+    closePopup(popupOpened);
+  }
+}
+
+
+function closePopupOverlay(evt, popup) {
+  if (evt.target === evt.currentTarget) {
+    closePopup(popup);
+  }
+  return
+}
+
+// закрытие попап по оверлею
+popupOverlays.forEach(item => item.addEventListener('click', (evt) => closePopupOverlay(evt, item)));
+
 function openPopup(listPopups) {
+  
   listPopups.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupByEscape);
 }
 
 function closePopup(listPopups) {
   listPopups.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByEscape);  
 }
 
-profileEditButton.addEventListener('click', () => {
+profileEditButton.addEventListener('click', () => {  
   inputNameAuthor.value = profileName.textContent;
-  inputJobAuthor.value = profileJob.textContent;
+  inputJobAuthor.value = profileJob.textContent;  
   openPopup(popupEditProfile)
 })
 
@@ -84,7 +113,7 @@ popupCloseButtons.forEach((item) => {
   })
 })
 
-placeEditButton.addEventListener('click', () => {
+placeEditButton.addEventListener('click', () => {  
   openPopup(popupAddPlace)
 })
 

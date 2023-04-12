@@ -1,0 +1,24 @@
+.popup__input-error {
+  position: absolute;
+  top: 28px;
+  left: 36px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: red;
+  visibility: hidden;
+  width: 358px;
+  min-height: 30px;
+}
+
+.popup__input-error:last-of-type {
+  top: 90px;
+}
+
+@media screen and (max-width: 659px) {
+  .popup__input-error {
+    top: 28px;
+    left: 22px;
+    width: 238px;
+  }
+}
