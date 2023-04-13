@@ -12,7 +12,16 @@ const validationSettings = {
 // const l = console.log;
 // l(validationSettings.errorClass)
 
-function showInputError(errorElement, input, inputErrorClass, errorClass) {
+function resetErrorOpenPopup(form) {
+  form.querySelectorAll('.popup__input').forEach((item) => {
+    const errorText = form.querySelector(`${validationSettings.errorTemplate}${item.name}`);
+    if (!item.validity.valid) {
+      hideInputError(errorText, item, validationSettings.inputErrorClass, validationSettings.errorClass);
+    }
+  })
+}
+
+function showInputError(errorElement, input, inputErrorClass, errorClass) {  
   errorElement.classList.add(errorClass);
   errorElement.textContent = input.validationMessage;
   input.classList.add(inputErrorClass);
@@ -30,14 +39,14 @@ function hasValidInput(inputList) {
 }
 
 //делает кнопку некликабельной
-function disableSubmitButton(button, inactiveButtonClass) {
-  button.classList.add(inactiveButtonClass);
+function disableSubmitButton(button, inactiveButtonClass) {  
+  button.classList.add(validationSettings.inactiveButtonClass);
   button.disabled = true;
 }
 
 //делает кнопку кликабельной
 function enableSubmitButton(button, inactiveButtonClass) {
-  button.classList.remove(inactiveButtonClass);
+  button.classList.remove(validationSettings.inactiveButtonClass);
   button.disabled = false;
 }
 
@@ -69,12 +78,12 @@ function enableValidation(settings) {
   forms.forEach((item) => {
     const inputList = item.querySelectorAll(settings.inputSelector)
     const buttonSubmit = item.querySelector(settings.submitButtonSelector)
-    addEventListener(inputList, buttonSubmit, settings.errorTemplate, settings.inactiveButtonClass, settings.inputErrorClass, settings.errorClass)
+    setEventListener(inputList, buttonSubmit, settings.errorTemplate, settings.inactiveButtonClass, settings.inputErrorClass, settings.errorClass)
   })
 }
 
 
-function addEventListener(inputList, button, errorSelector, inactiveButtonClass, inputErrorClass, errorClass) {
+function setEventListener(inputList, button, errorSelector, inactiveButtonClass, inputErrorClass, errorClass) {
   inputList.forEach((input) => {
     input.addEventListener('input', () => {
       toggleButtonState(button, inputList, inactiveButtonClass);

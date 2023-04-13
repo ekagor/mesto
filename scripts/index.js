@@ -19,8 +19,8 @@ const formPopupPlace = popupAddPlace.querySelector('.popup__content');
 const inputNameAuthor = document.querySelector('.popup__input_type_name');
 const inputJobAuthor = document.querySelector('.popup__input_type_job');
 //импуты попапа Place
-const inputTitle = formPopupPlace.querySelector('.popup__input_type_title');
-const inputLink = formPopupPlace.querySelector('.popup__input_type_link');
+const inputTitleFopmPopupPlace = formPopupPlace.querySelector('.popup__input_type_title');
+const inputLinkFopmPopupPlace = formPopupPlace.querySelector('.popup__input_type_link');
 //элементы попапа Img
 const containerImgPopup = popupImg.querySelector('.img-popup__container')
 const imageImgPopup = popupImg.querySelector('.img-popup__image');
@@ -32,6 +32,11 @@ const popupCloseButton = document.querySelectorAll('.popup__close-button');
 // Все оверлеи попапов
 const popupOverlays = document.querySelectorAll('.popup');
 
+//для валидации
+const buttonSubmitFormPopupProfile = document.querySelector('.popup__button');
+const inputListFormPopupProfile = document.querySelectorAll('.popup__input');
+const buttonSubmitFormPopupPlacePlace = document.querySelector('.popup__button');
+const inputListFormPopupPlace = document.querySelectorAll('.popup__input');
 
 
 //Массив картточек изначальный
@@ -62,7 +67,6 @@ const initialCards = [
   }
 ];
 
-
 //закрытие попапа при нажатии на клавишу Escape
 function closePopupByEscape(evt) {
   if (evt.key === 'Escape') {
@@ -70,7 +74,6 @@ function closePopupByEscape(evt) {
     closePopup(popupOpened);
   }
 }
-
 
 function closePopupOverlay(evt, popup) {
   if (evt.target === evt.currentTarget) {
@@ -82,8 +85,8 @@ function closePopupOverlay(evt, popup) {
 // закрытие попап по оверлею
 popupOverlays.forEach(item => item.addEventListener('click', (evt) => closePopupOverlay(evt, item)));
 
-function openPopup(listPopups) {
-  
+
+function openPopup(listPopups) {  
   listPopups.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupByEscape);
 }
@@ -93,9 +96,11 @@ function closePopup(listPopups) {
   document.removeEventListener('keydown', closePopupByEscape);  
 }
 
-profileEditButton.addEventListener('click', () => {  
+profileEditButton.addEventListener('click', () => {
+  resetErrorOpenPopup(formPopupProfile)  
   inputNameAuthor.value = profileName.textContent;
-  inputJobAuthor.value = profileJob.textContent;  
+  inputJobAuthor.value = profileJob.textContent;
+  toggleButtonState(buttonSubmitFormPopupProfile, inputListFormPopupProfile, validationSettings.inactiveButtonClass) 
   openPopup(popupEditProfile)
 })
 
@@ -113,8 +118,12 @@ popupCloseButtons.forEach((item) => {
   })
 })
 
-placeEditButton.addEventListener('click', () => {  
-  openPopup(popupAddPlace)
+placeEditButton.addEventListener('click', () => {
+  const buttonSubmit = formPopupPlace.querySelector('.popup__button');
+  disableSubmitButton(buttonSubmit, validationSettings);
+  toggleButtonState(buttonSubmitFormPopupPlacePlace, inputListFormPopupPlace, validationSettings.inactiveButtonClass);  
+  resetErrorOpenPopup(formPopupPlace);  
+  openPopup(popupAddPlace);
 })
 
 //Создание карточки на основе темплейта
@@ -147,8 +156,10 @@ initialCards.forEach(function (item) {
 //Редактирование карточки места
 formPopupPlace.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  const objectPlace = { name: inputTitle.value, link: inputLink.value };
-  cardsContainer.prepend(createCard(objectPlace));
+  const objectPlace = { name: inputTitleFopmPopupPlace.value, link: inputLinkFopmPopupPlace.value };
+  cardsContainer.prepend(createCard(objectPlace));  
   closePopup(popupAddPlace);
-  evt.target.reset();
+  evt.target.reset();  
 })
+
+console.log(buttonSubmitFormPopupPlacePlace)
