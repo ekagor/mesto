@@ -19,8 +19,8 @@ const formPopupPlace = popupAddPlace.querySelector('.popup__content');
 const inputNameAuthor = document.querySelector('.popup__input_type_name');
 const inputJobAuthor = document.querySelector('.popup__input_type_job');
 //импуты попапа Place
-const inputTitleFopmPopupPlace = formPopupPlace.querySelector('.popup__input_type_title');
-const inputLinkFopmPopupPlace = formPopupPlace.querySelector('.popup__input_type_link');
+const inputTitleFormPopupPlace = formPopupPlace.querySelector('.popup__input_type_title');
+const inputLinkFormPopupPlace = formPopupPlace.querySelector('.popup__input_type_link');
 //элементы попапа Img
 const containerImgPopup = popupImg.querySelector('.img-popup__container')
 const imageImgPopup = popupImg.querySelector('.img-popup__image');
@@ -120,17 +120,19 @@ popupCloseButtons.forEach((item) => {
 
 placeEditButton.addEventListener('click', () => {
   const buttonSubmit = formPopupPlace.querySelector('.popup__button');
-  disableSubmitButton(buttonSubmit, validationSettings);
+  disableSubmitButton(buttonSubmit, validationSettings.inactiveButtonClass);
+  formPopupPlace.reset();
   toggleButtonState(buttonSubmitFormPopupPlacePlace, inputListFormPopupPlace, validationSettings.inactiveButtonClass);  
   resetErrorOpenPopup(formPopupPlace);  
   openPopup(popupAddPlace);
 })
 
+
 //Создание карточки на основе темплейта
 function createCard(item) {
   const cardTemplate = document.querySelector('.card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  const cardImage = cardElement.querySelector('.card__image');
+  const cardImage = cardElement.querySelector('.card__image'); 
   const cardName = cardElement.querySelector('.card__title');
   const cardLike = cardElement.querySelector('.card__like');
   const trashCard = cardElement.querySelector('.card__trash');
@@ -156,10 +158,8 @@ initialCards.forEach(function (item) {
 //Редактирование карточки места
 formPopupPlace.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  const objectPlace = { name: inputTitleFopmPopupPlace.value, link: inputLinkFopmPopupPlace.value };
+  const objectPlace = { name: inputTitleFormPopupPlace.value, link: inputLinkFormPopupPlace.value };
   cardsContainer.prepend(createCard(objectPlace));  
   closePopup(popupAddPlace);
   evt.target.reset();  
 })
-
-console.log(buttonSubmitFormPopupPlacePlace)
