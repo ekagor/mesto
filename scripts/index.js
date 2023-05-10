@@ -39,14 +39,13 @@ const captionImgPopup = popupImg.querySelector('.img-popup__caption');
 const listsElement = document.querySelector('.photo-grid__cards');
 const selectorTemlate = '#cardElement';
 
-
 //объект для валидации
 const validationSettings = {
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
   errorTemplate: '.popup__input-error_type_',
   inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input-error_invalid', //подчеркивает ошибку красным
+  inputErrorClass: 'popup__input-error_invalid',
 };
 
 const openPopup=(popup) =>{
@@ -87,8 +86,7 @@ function openImagePopup(cardData) {
   imageImgPopup.src = cardData.link;
   imageImgPopup.alt = cardData.name;
   captionImgPopup.textContent = cardData.name;
-  openPopup(popupImg);
-  console.log(cardData); 
+  openPopup(popupImg);   
 }
 
 // загрузка массива изначальных карточек
@@ -99,8 +97,7 @@ initialCards.forEach(element => {
 //создание экземпляра объекта и вывод разметки карточки
 function creatCard(element) {
   const card = new Card(element, selectorTemlate, openImagePopup);
-  const cardElement = card.createCard();
-  return cardElement;
+  return card.createCard();
 }
 //добавление карточки в контейнер
 function addCard(container, card) {
@@ -109,7 +106,7 @@ function addCard(container, card) {
 
 //открытие попапа редактирования профайла
 profileEditButton.addEventListener('click', () => {
-  formPopupProfileValidator.resetErrorOpenPopup();
+  formPopupProfileValidator.resetValidationState();
   inputNameAuthor.value = profileName.textContent;
   inputJobAuthor.value = profileJob.textContent;
   openPopup(popupEditProfile);
@@ -118,7 +115,7 @@ profileEditButton.addEventListener('click', () => {
 //открытие попапа редактирования карточек
 placeEditButton.addEventListener('click', () => {
   formPopupPlace.reset();
-  formPopupPlaceValidator.resetErrorOpenPopup();
+  formPopupPlaceValidator.resetValidationState();
   openPopup(popupAddPlace);
 })
 

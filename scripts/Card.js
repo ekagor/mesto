@@ -10,16 +10,16 @@ export default class Card {
     return document.querySelector(this._selectorTemlate).content.querySelector('.card').cloneNode(true);
   }
   
-  _handleDeleteClick(evt) {
-    evt.target.closest('.card').remove();
+  _handleDeleteClick = (evt) => {    
+    this._cloneCard.remove();   
   }
 
   _handleCardClick(evt) {
     evt.target.classList.toggle('card__like_active');
   }
   
-  _handleOpenImage = (evt) => {
-    this._cardData = {name: evt.target.alt, link: evt.target.src};
+  _handleOpenImage = (evt) => {    
+    this._cardData = {name: this._name, link: this._link};
     this._openImagePopup(this._cardData);
   }
 

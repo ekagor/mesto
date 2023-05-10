@@ -64,7 +64,7 @@ export default class FormValidator {
     this._setEventListener();
   }
   
-  resetErrorOpenPopup() {
+  resetValidationState() {
     this._inputList.forEach(input => {
       const errorTextElement = this._form.querySelector(`${this._errorTemplate}${input.name}`);
       if (!input.validity.valid) {
