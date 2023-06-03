@@ -1,0 +1,11 @@
+.card__info {
+  display: grid;
+  align-content: center;
+  padding-left: 21px;
+  padding-right: 20px;
+  min-height: 79px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  grid-template-columns: 1fr 22px;
+  row-gap: 4px;
+}

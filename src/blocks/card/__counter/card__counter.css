@@ -1,0 +1,11 @@
+.card__counter {
+  color: #000;
+  font-weight: 400;
+  font-size: 13px;
+  text-align: center;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 1;
+  min-height: 16px;
+}
